@@ -7,16 +7,6 @@ import re
 genai.configure(api_key="AIzaSyBfr-e5TXq4QeE5xZ2U3bRqdzYPZRxxD5s")
 model = genai.GenerativeModel("gemini-2.0-flash")
 
-# Show tip only if not dismissed before
-if "sidebar_tip_shown" not in st.session_state:
-    st.session_state.sidebar_tip_shown = True
-
-if st.session_state.sidebar_tip_shown:
-    with st.sidebar.expander("ℹ️ Tip", expanded=True):
-        st.markdown("👉 On mobile, click **`<<`** at the top to open the sidebar.")
-        if st.button("Got it!", key="dismiss_tip"):
-            st.session_state.sidebar_tip_shown = False
-
 st.set_page_config(page_title="LearnStack", page_icon="📌", layout="wide")
 st.title("📌 LearnStack")
 st.subheader("AI-powered structured learning plans")
@@ -56,6 +46,16 @@ with st.sidebar:
         st.code(md, language="markdown")
 
 # --- MAIN: SHOW TASKS & PROGRESS ---
+# Show tip only if not dismissed before
+if "sidebar_tip_shown" not in st.session_state:
+    st.session_state.sidebar_tip_shown = True
+
+if st.session_state.sidebar_tip_shown:
+    with st.sidebar.expander("ℹ️ Tip", expanded=True):
+        st.markdown("👉 On mobile, click **`<<`** at the top to open the sidebar.")
+        if st.button("Got it!", key="dismiss_tip"):
+            st.session_state.sidebar_tip_shown = False
+
 if "tasks" in st.session_state:
     st.subheader(f"📚 Learning Plan for: {topic}")
     tasks = st.session_state.tasks
@@ -92,4 +92,5 @@ if "tasks" in st.session_state:
     st.session_state.completed = completed
     st.progress(sum(completed) / len(tasks))
     st.write(f"**Progress:** {sum(completed)}/{len(tasks)} tasks completed ✅")
+
 
