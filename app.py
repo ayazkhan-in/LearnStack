@@ -45,16 +45,17 @@ with st.sidebar:
         st.markdown("### Copy the Markdown below and paste into Notion:")
         st.code(md, language="markdown")
 
-# --- MAIN: SHOW TASKS & PROGRESS ---
-# Show tip only if not dismissed before
-if "sidebar_tip_shown" not in st.session_state:
-    st.session_state.sidebar_tip_shown = True
+     # Show tip only if not dismissed before
+   if "sidebar_tip_shown" not in st.session_state:
+      st.session_state.sidebar_tip_shown = True
 
-if st.session_state.sidebar_tip_shown:
-    with st.sidebar.expander("ℹ️ Tip", expanded=True):
+   if st.session_state.sidebar_tip_shown:
+      with st.sidebar.expander("ℹ️ Tip", expanded=True):
         st.markdown("👉 On mobile, click **`<<`** at the top to open the sidebar.")
         if st.button("Got it!", key="dismiss_tip"):
             st.session_state.sidebar_tip_shown = False
+
+# --- MAIN: SHOW TASKS & PROGRESS ---
 
 if "tasks" in st.session_state:
     st.subheader(f"📚 Learning Plan for: {topic}")
@@ -92,5 +93,6 @@ if "tasks" in st.session_state:
     st.session_state.completed = completed
     st.progress(sum(completed) / len(tasks))
     st.write(f"**Progress:** {sum(completed)}/{len(tasks)} tasks completed ✅")
+
 
 
